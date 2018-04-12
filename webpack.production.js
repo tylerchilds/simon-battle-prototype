@@ -27,7 +27,7 @@ const compressionPlugin = new CompressionPlugin();
 
 module.exports = {
   context: path.join(__dirname, 'src'),
-  entry: './index',
+  entry: ['babel-polyfill', './index'],
   output: {
     publicPath: '/',
     filename: '[hash].js',

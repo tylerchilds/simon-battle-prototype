@@ -1,0 +1,108 @@
+$yellow: #ffea37;
+$yellow-light: lighten($yellow, 10%);
+$red: #dd4b3e;
+$red-light: lighten($red, 10%);
+$green: #3edd4b;
+$green-light: lighten($green, 10%);
+$blue: #4b3edd;
+$blue-light: lighten($blue, 10%);
+
+.wrapper{
+  bottom: 5vh;
+  left: 0;
+  margin: 0 auto;
+  max-width: 800px;
+  position: fixed;
+  right: 0;
+}
+
+.wrapper::after{
+  background-color: #fff;
+  border-radius: 20vw;
+  bottom: 0;
+  content: '';
+  height: 20vw;
+  left: 0;
+  margin: auto;
+  max-height: 200px;
+  max-width: 200px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20vw;
+}
+
+.button{
+  border: none;
+  color: transparent;
+  cursor: pointer;
+  margin: 5px;
+  max-height: 40vw;
+  max-width: 40vw;
+  height: 30vh;
+  width: 30vh;
+}
+
+.button:focus{
+  outline: none;
+}
+
+.button:nth-child(1){
+  border-radius: 1000px 0 0 0;
+}
+
+.button:nth-child(2){
+  border-radius: 0 1000px 0 0;
+}
+
+.button:nth-child(3){
+  border-radius: 0 0 0 1000px;
+}
+
+.button:nth-child(4){
+  border-radius: 0 0 1000px 0;
+}
+
+.yellow{
+  background-color: $yellow;
+}
+
+.yellow.active,
+.yellow:hover{
+  background-color: $yellow-light;
+  box-shadow: 0 0 5px 5px $yellow-light;
+}
+
+.red{
+  background-color: $red;
+}
+
+.red.active,
+.red:hover{
+  background-color: $red-light;
+  box-shadow: 0 0 5px 5px $red-light;
+}
+
+.blue{
+  background-color: $blue;
+}
+
+.blue.active,
+.blue:hover{
+  background-color: $blue-light;
+  box-shadow: 0 0 5px 5px $blue-light;
+}
+
+.green{
+  background-color: $green;
+}
+
+.green.active,
+.green:hover{
+  background-color: $green-light;
+  box-shadow: 0 0 5px 5px $green-light;
+}
+
+.wrapper{
+  text-align: center;
+}

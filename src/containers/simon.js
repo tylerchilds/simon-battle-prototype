@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setChoices } from 'actions/game';
 import { loadApp } from 'actions/app';
+import styles from './simon.scss';
 import GameClient from '../lib/GameClient';
 
 export class Simon extends Component {
@@ -8,14 +10,11 @@ export class Simon extends Component {
     super(props)
 
     this.gameClient = new GameClient(this.initialized.bind(this)) 
-    this.state = {
-      choices: []
-    }
   }
 
   initialized(data) {
-    this.setState({choices: data.choices})
-    this.props.dispatch(loadApp());
+    this.props.dispatch(setChoices(data.choices))
+    this.props.dispatch(loadApp())
   }
 
   render() {
@@ -24,10 +23,14 @@ export class Simon extends Component {
     }
     
     return (
-      <div>
+      <div className={styles.wrapper}>
         {
-          this.state.choices.map((choice, i) => {
-            return <button key={i} onClick={() => this.guess(choice)}>{choice}</button>
+          this.props.choices.map((choice, i) => {
+            return (
+              <button key={i} onClick={() => this.guess(choice)} className={`${styles.button} ${styles[choice]}`}>
+                {choice}
+              </button>
+            )
           })
         }
       </div>
@@ -41,7 +44,8 @@ export class Simon extends Component {
 
 function mapStateToProperties(state) {
   return {
-    loaded: state.app.loaded
+    loaded: state.app.loaded,
+    choices: state.game.choices
   };
 }
 
