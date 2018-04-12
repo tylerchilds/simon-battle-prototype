@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+var io = require('socket.io')();
 
 const app = express();
 
@@ -18,3 +19,16 @@ app.listen(port, (error) => {
   }
   console.info('Express is listening on port %s.', port); // eslint-disable-line no-console
 });
+
+io.on('connection', (client) => {
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
+});
+
+
+io.listen(8000);
+console.log('listening on port ', 8000);

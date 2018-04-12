@@ -78,6 +78,8 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "redux": "^3.7.2",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0",
     "style-loader": "^0.18.2",
     "webpack": "3.6.0"
   }
