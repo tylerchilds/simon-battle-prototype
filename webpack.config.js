@@ -20,7 +20,7 @@ const stylesheetsLoaders = [
 
 module.exports = {
   context: path.join(__dirname, 'src'),
-  entry: './index',
+  entry: ['babel-polyfill', './index'],
   output: {
     filename: '[hash].js',
   },

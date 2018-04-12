@@ -1,7 +1,10 @@
-const path = require('path');
-const express = require('express');
-var io = require('socket.io')();
+import path from 'path';
+import express from 'express';
+import socket from 'socket.io';
 
+import GamesDatabase from './lib/GamesDatabase';
+
+const io = socket()
 const app = express();
 
 const port = process.env.PORT ? process.env.PORT : 8181;
@@ -20,12 +23,20 @@ app.listen(port, (error) => {
   console.info('Express is listening on port %s.', port); // eslint-disable-line no-console
 });
 
-io.on('connection', (client) => {
-  client.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
+let db = new GamesDatabase()
+
+io.on('connection', function(client){
+  let game = db.create()
+
+  client.emit('initialize', game.instance.serialize());
+
+  client.on('disconnect', function(){
+    game = db.update(game.id, {activePlayers: --game.activePlayers})
+    if(game.activePlayers < 1) db.delete(game.id)
+  });
+
+  client.on('action', function(data){
+    console.log(game.instance.action(data))
   });
 });
 
