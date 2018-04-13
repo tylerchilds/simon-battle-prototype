@@ -36,7 +36,9 @@ io.on('connection', function(client){
   });
 
   client.on('action', function(data){
-    console.log(game.instance.action(data))
+    game.instance.action(data)
+    console.log(game.instance.serialize())
+    client.emit('update', game.instance.serialize());
   });
 });
 

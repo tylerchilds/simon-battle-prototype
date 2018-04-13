@@ -1,4 +1,4 @@
-export const APP_LOAD = 'APP_LOAD';
 export const GAME_CHOICES = 'GAME_CHOICES';
+export const GAME_UPDATED = 'GAME_UPDATED';
 
-export default { APP_LOAD, GAME_CHOICES };
+export default { GAME_CHOICES, GAME_UPDATED };

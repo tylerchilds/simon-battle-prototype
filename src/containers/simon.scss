@@ -32,6 +32,10 @@ $blue-light: lighten($blue, 10%);
   width: 20vw;
 }
 
+.wrapper--inactive{
+  pointer-events: none;
+}
+
 .button{
   border: none;
   color: transparent;
@@ -67,8 +71,7 @@ $blue-light: lighten($blue, 10%);
   background-color: $yellow;
 }
 
-.yellow.active,
-.yellow:hover{
+.yellow--active{
   background-color: $yellow-light;
   box-shadow: 0 0 5px 5px $yellow-light;
 }
@@ -77,8 +80,7 @@ $blue-light: lighten($blue, 10%);
   background-color: $red;
 }
 
-.red.active,
-.red:hover{
+.red--active{
   background-color: $red-light;
   box-shadow: 0 0 5px 5px $red-light;
 }
@@ -87,8 +89,7 @@ $blue-light: lighten($blue, 10%);
   background-color: $blue;
 }
 
-.blue.active,
-.blue:hover{
+.blue--active{
   background-color: $blue-light;
   box-shadow: 0 0 5px 5px $blue-light;
 }
@@ -97,8 +98,7 @@ $blue-light: lighten($blue, 10%);
   background-color: $green;
 }
 
-.green.active,
-.green:hover{
+.green--active{
   background-color: $green-light;
   box-shadow: 0 0 5px 5px $green-light;
 }

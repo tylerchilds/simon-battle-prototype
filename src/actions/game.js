@@ -1,4 +1,4 @@
-import { GAME_CHOICES } from 'constants/action-types';
+import { GAME_CHOICES, GAME_UPDATED } from 'constants/action-types';
 
 export function setChoices(choices) {
   return {
@@ -7,4 +7,11 @@ export function setChoices(choices) {
   };
 }
 
-export default { setChoices };
+export function updateGame(data) {
+  return {
+    type: GAME_UPDATED,
+    data
+  };
+}
+
+export default { setChoices, updateGame };
