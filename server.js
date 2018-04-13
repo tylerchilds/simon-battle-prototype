@@ -3,6 +3,7 @@ import express from 'express';
 import { createServer } from 'http';
 import socket from 'socket.io';
 
+import Player from './lib/Player';
 import GamesDatabase from './lib/GamesDatabase';
 
 const app = express();
@@ -21,7 +22,9 @@ app.get('*', (req, res) => {
 let db = new GamesDatabase()
 
 io.on('connection', function(client){
+  let player = new Player()
   let game = db.create()
+  db.update(game.id, {players: [...game.players, player]})
 
   client.emit('initialize', game.instance.serialize());
 
@@ -32,7 +35,7 @@ io.on('connection', function(client){
 
   client.on('action', function(data){
     game.instance.action(data)
-    console.log(game.instance.serialize())
+    console.log(game.instance.state)
     client.emit('update', game.instance.serialize());
   });
 });

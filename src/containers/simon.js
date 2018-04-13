@@ -8,20 +8,37 @@ export class Simon extends Component {
   constructor(props) {
     super(props)
 
-    this.gameClient = new GameClient({
-      initialized: this.initialized.bind(this),
-      updated: this.updated.bind(this)
-    })
+    this.gameClient = new GameClient()
+
+    this.gameClient.on('initialize', this.initialize.bind(this))
+    this.gameClient.on('update', this.update.bind(this))
+    this.gameClient.on('success', this.success.bind(this))
+    this.gameClient.on('failure', this.failure.bind(this))
+    this.gameClient.on('ok', this.ok.bind(this))
+
+    this.gameClient.start()
 
     this.$els = {}
   }
 
-  initialized(data) {
+  initialize(data) {
     this.props.dispatch(updateGame(data))
   }
 
-  updated(data){
+  update(data) {
     this.props.dispatch(updateGame(data))
+  }
+
+  success(data) {
+    console.log('success', data)
+  }
+
+  failure(data) {
+    console.log('failure', data)
+  }
+
+  ok(data) {
+    console.log('ok', data)
   }
 
   componentDidUpdate(){
@@ -70,25 +87,18 @@ export class Simon extends Component {
 
   async animateNew() {
     this.$els.wrapper.classList.toggle(styles['wrapper--inactive'])
-    await this.delay(750)
+    await this.sleep(200)
     for(let item of this.props.game.newItems){
-      await this.animate(item)
+      this.$els[item].classList.add(styles[`${item}--active`])
+      await this.sleep(400)
+      this.$els[item].classList.remove(styles[`${item}--active`])
+      await this.sleep(200)
     }
     this.props.dispatch(updateGame({newItems: []}))
     this.$els.wrapper.classList.toggle(styles['wrapper--inactive'])
   }
 
-  animate(item) {
-    this.$els[item].classList.toggle(styles[`${item}--active`])
-    return new Promise(resolve => {
-      setTimeout(() => {
-        this.$els[item].classList.toggle(styles[`${item}--active`])
-        setTimeout(() => resolve(), 200)
-      }, 400);
-    });
-  }
-
-  async delay(time){
+  async sleep(time){
     await new Promise(resolve => setTimeout(() => resolve(), time));
   }
 }
