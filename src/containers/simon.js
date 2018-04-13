@@ -41,17 +41,22 @@ export class Simon extends Component {
         {
           this.props.game.choices.map((choice, key) => {
             const props = {
+              href: "javascript:;",
               ref: (el) => this.$els[choice] = el,
-              onClick: () => this.guess(choice),
-              onTouchStart: () => this.$els[choice].classList.add(styles[`${choice}--active`]),
-              onTouchEnd: () => this.$els[choice].classList.remove(styles[`${choice}--active`]),
+              onTouchStart: () => {
+                this.$els[choice].classList.add(styles[`${choice}--active`])
+              },
+              onTouchEnd: () => {
+                this.$els[choice].classList.remove(styles[`${choice}--active`])
+                this.guess(choice)
+              },
               className: `${styles.button} ${styles[choice]}`,
               key
             }
             return (
-              <button {...props}>
+              <a {...props}>
                 {choice}
-              </button>
+              </a>
             )
           })
         }
@@ -63,15 +68,14 @@ export class Simon extends Component {
     this.gameClient.action({guess: choice})
   }
 
-  animateNew() {
+  async animateNew() {
     this.$els.wrapper.classList.toggle(styles['wrapper--inactive'])
-    setTimeout(async () => {
-      for(let item of this.props.game.newItems){
-        await this.animate(item)
-      }
-      this.props.dispatch(updateGame({newItems: []}))
-      this.$els.wrapper.classList.toggle(styles['wrapper--inactive'])
-    }, 500)
+    await this.delay(750)
+    for(let item of this.props.game.newItems){
+      await this.animate(item)
+    }
+    this.props.dispatch(updateGame({newItems: []}))
+    this.$els.wrapper.classList.toggle(styles['wrapper--inactive'])
   }
 
   animate(item) {
@@ -79,9 +83,13 @@ export class Simon extends Component {
     return new Promise(resolve => {
       setTimeout(() => {
         this.$els[item].classList.toggle(styles[`${item}--active`])
-        setTimeout(() => resolve(), 250)
-      }, 500);
+        setTimeout(() => resolve(), 200)
+      }, 400);
     });
+  }
+
+  async delay(time){
+    await new Promise(resolve => setTimeout(() => resolve(), time));
   }
 }
 
