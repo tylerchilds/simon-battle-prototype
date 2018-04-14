@@ -2,7 +2,7 @@ import openSocket from 'socket.io-client';
 
 export default class GameClient{
   constructor(options){
-    this.socket = openSocket();
+    this.socket = openSocket(":8181");
     this.events = {}
 
     this.on('update', this.delegateEvents.bind(this))

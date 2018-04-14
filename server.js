@@ -3,8 +3,7 @@ import express from 'express';
 import { createServer } from 'http';
 import socket from 'socket.io';
 
-import Player from './lib/Player';
-import GamesDatabase from './lib/GamesDatabase';
+import ConnectionManager from './lib/ConnectionManager';
 
 const app = express();
 const server = createServer(app)
@@ -19,26 +18,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(dist, 'index.html'));
 });
 
-let db = new GamesDatabase()
-
-io.on('connection', function(client){
-  let player = new Player()
-  let game = db.create()
-  db.update(game.id, {players: [...game.players, player]})
-
-  client.emit('initialize', game.instance.serialize());
-
-  client.on('disconnect', function(){
-    game = db.update(game.id, {activePlayers: --game.activePlayers})
-    if(game.activePlayers < 1) db.delete(game.id)
-  });
-
-  client.on('action', function(data){
-    game.instance.action(data)
-    console.log(game.instance.state)
-    client.emit('update', game.instance.serialize());
-  });
-});
+io.on('connection', (client) => new ConnectionManager(client));
 
 server.listen(port, (error) => {
   if (error) {
