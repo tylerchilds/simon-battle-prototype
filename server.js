@@ -12,13 +12,15 @@ const io = socket(server)
 const port = process.env.PORT ? process.env.PORT : 8181;
 const dist = path.join(__dirname, 'dist');
 
+const connectionManager = new ConnectionManager()
+
 app.use(express.static(dist));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(dist, 'index.html'));
 });
 
-io.on('connection', (client) => new ConnectionManager(client));
+io.on('connection', (client) => connectionManager.add(client));
 
 server.listen(port, (error) => {
   if (error) {
