@@ -12,7 +12,7 @@ const io = socket(server)
 const port = process.env.PORT ? process.env.PORT : 8181;
 const dist = path.join(__dirname, 'dist');
 
-const connectionManager = new ConnectionManager()
+const connectionManager = new ConnectionManager(io)
 
 app.use(express.static(dist));
 

@@ -8,6 +8,8 @@ export function setChoices(choices) {
 }
 
 export function updateGame(data) {
+  console.log(data)
+  console.log('whiiii')
   return {
     type: GAME_UPDATED,
     data

@@ -11,7 +11,7 @@ export class Simon extends Component {
 
     this.gameClient = new GameClient()
 
-    this.gameClient.on('initialize', (data) => props.updateGame(data))
+    this.gameClient.on('initialize', (id, data) => console.log(id, data))
     this.gameClient.on('update', (data) => props.updateGame(data))
     this.gameClient.on('success', (data) => props.updateGame(data))
     this.gameClient.on('failure', (data) => props.updateGame(data))
