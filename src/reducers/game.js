@@ -9,7 +9,7 @@ const initialState = {
 export default function game(state = initialState, action) {
   switch (action.type) {
     case GAME_CHOICES:
-    return { ...state, choices: action.choices };
+      return { ...state, choices: action.choices };
     case GAME_UPDATED:
       return { ...state, ...action.data };
     default:

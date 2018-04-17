@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setChoices, updateGame } from 'actions/game';
+import { setPlayer } from 'actions/player';
 import styles from './simon.scss';
 import GameClient from '../lib/GameClient';
 import Choices from './choices';
@@ -11,11 +12,13 @@ export class Simon extends Component {
 
     this.gameClient = new GameClient()
 
-    this.gameClient.on('initialize', (id, data) => console.log(id, data))
-    this.gameClient.on('update', (data) => props.updateGame(data))
-    this.gameClient.on('success', (data) => props.updateGame(data))
-    this.gameClient.on('failure', (data) => props.updateGame(data))
-    this.gameClient.on('ok', (data) => props.updateGame(data))
+    const updateGame = props.updateGame.bind(null, this.gameClient)
+
+    this.gameClient.on('initialize', (data) => updateGame(data))
+    this.gameClient.on('update', (data) => updateGame(data))
+    // this.gameClient.on('success', (data) => props.updateGame(data))
+    // this.gameClient.on('failure', (data) => props.updateGame(data))
+    // this.gameClient.on('ok', (data) => props.updateGame(data))
 
     this.gameClient.start()
   }
@@ -27,7 +30,7 @@ export class Simon extends Component {
     
     return (
       <div>
-        <Choices guess={this.guess.bind(this)} update={this.props.updateGame.bind(this)} />
+        <Choices guess={this.guess.bind(this)} update={this.props.updateGame.bind(this, this.gameClient)} />
       </div>
     )
   }
@@ -38,13 +41,15 @@ export class Simon extends Component {
 }
 
 function mapStateToProperties(state) {
+  console.log(state)
   return {
-    game: state.game
+    game: state.game,
+    player: state.player
   };
 }
 
 const mapDispatchToProperties = {
-  updateGame
+  updateGame, setPlayer
 }
 
 export default connect(mapStateToProperties, mapDispatchToProperties)(Simon);

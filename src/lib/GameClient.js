@@ -10,7 +10,10 @@ export default class GameClient extends EventBus{
   }
 
   start(){
-    this.socket.on('server-start', (id, data) => this.trigger('initialize', id, data));
+    this.socket.on('server-start', (id, data) => {
+      this.id = id
+      this.trigger('initialize', data)
+    });
     this.socket.on('server-update', (data) => this.trigger('update', data));
   }
 

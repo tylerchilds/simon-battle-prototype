@@ -7,9 +7,8 @@ export function setChoices(choices) {
   };
 }
 
-export function updateGame(data) {
-  console.log(data)
-  console.log('whiiii')
+export function updateGame(gc, data) {
+  data = data.games ? data.games[gc.id] : data
   return {
     type: GAME_UPDATED,
     data
