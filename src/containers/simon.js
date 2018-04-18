@@ -19,12 +19,20 @@ export class Simon extends Component {
   }
 
   render() {
-    if (this.props.game.choices.length === 0) {
+    let {current, enemies} = this.props.player;
+
+    if (!current.hp) {
       return null;
     }
-    
+
     return (
-      <div>
+      <div style={{color: "#fff"}}>
+        <p>
+          Your health: {current.hp}
+        </p>
+        <p>
+          Enemy health: { enemies[Object.keys(enemies)[0]].hp}
+        </p>
         <Choices guess={this.guess.bind(this)} update={this.props.updateGame.bind(this)} />
       </div>
     )
