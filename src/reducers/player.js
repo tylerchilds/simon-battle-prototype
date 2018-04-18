@@ -1,13 +1,17 @@
-import { SET_PLAYER } from 'constants/action-types';
+import { PLAYERS_UPDATED } from 'constants/action-types';
 
 const initialState = {
-  id: null
+  enemies: {},
+  current: {}
 };
 
 export default function game(state = initialState, action) {
   switch (action.type) {
-    case SET_PLAYER:
-    return { ...state, id: action.id };
+    case PLAYERS_UPDATED:
+      return { ...state, 
+        enemies: action.enemies,
+        current: action.current 
+      };
     default:
       return state;
   }

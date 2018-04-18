@@ -1,10 +1,14 @@
-import { SET_PLAYER } from 'constants/action-types';
+import { PLAYERS_UPDATED } from 'constants/action-types';
 
-export function setPlayer(id) {
+export function updatePlayers(id, players) {
+  let current = players[id]
+  delete players[id]
+
   return {
-    type: SET_PLAYER,
-    id
+    type: PLAYERS_UPDATED,
+    enemies: players,
+    current
   };
 }
 
-export default { setPlayer };
+export default { updatePlayers };
