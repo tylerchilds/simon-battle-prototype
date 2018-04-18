@@ -1,0 +1,35 @@
+@import 'deps.scss';
+
+.container{
+  color: $white;
+  opacity: .5;
+}
+
+.bar{
+  background-color: $white;
+  margin-bottom: 5px;
+  min-height: 50vh;
+  position: relative;
+  width: 20vw;
+}
+
+.bar__fill{
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  transition: min-height 500ms ease-out;
+}
+
+.green{
+  background-color: $green;
+}
+
+.yellow{
+  background-color: $yellow;
+}
+
+.red{
+  background-color: $red;
+}

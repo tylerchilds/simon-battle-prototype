@@ -1,0 +1,22 @@
+@import 'deps.scss';
+
+.simon{
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
+
+.current{
+  left: 5vw;
+  position: absolute;
+  top: 5vw;
+}
+
+.enemies{
+  right: 5vw;
+  position: absolute;
+  top: 5vw;
+}

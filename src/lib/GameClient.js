@@ -4,7 +4,7 @@ import EventBus from '../../lib/EventBus';
 export default class GameClient extends EventBus{
   constructor(options){
     super()
-    this.socket = openSocket(":8181");
+    this.socket = openSocket();
 
     this.on('update', this.delegateEvents.bind(this))
   }

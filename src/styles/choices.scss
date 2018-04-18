@@ -1,11 +1,4 @@
-$yellow: #ffea37;
-$yellow-light: lighten($yellow, 10%);
-$red: #dd4b3e;
-$red-light: lighten($red, 10%);
-$green: #3edd4b;
-$green-light: lighten($green, 10%);
-$blue: #4b3edd;
-$blue-light: lighten($blue, 10%);
+@import 'deps.scss';
 
 .wrapper{
   bottom: 5vh;

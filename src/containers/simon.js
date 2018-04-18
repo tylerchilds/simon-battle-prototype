@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateGame } from 'actions/game';
 import { updatePlayers } from 'actions/player';
-import styles from './simon.scss';
+import styles from '../styles/simon.scss';
 import GameClient from '../lib/GameClient';
 import Choices from './choices';
+import HealthBar from '../components/health-bar';
 
 export class Simon extends Component {
   constructor(props) {
@@ -26,13 +27,14 @@ export class Simon extends Component {
     }
 
     return (
-      <div style={{color: "#fff"}}>
-        <p>
-          Your health: {current.hp}
-        </p>
-        <p>
-          Enemy health: { enemies[0].hp}
-        </p>
+      <div className={styles.simon}>
+        <div className={styles.current}>
+          <HealthBar entity={current} name="You" />
+        </div>
+        <div className={styles.enemies}>
+          {enemies.map((e, key) => (<HealthBar entity={e} name="Them" key={key} />))}
+        </div>
+
         <Choices guess={this.guess.bind(this)} update={this.props.updateGame.bind(this)} />
       </div>
     )
