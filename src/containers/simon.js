@@ -31,7 +31,7 @@ export class Simon extends Component {
           Your health: {current.hp}
         </p>
         <p>
-          Enemy health: { enemies[Object.keys(enemies)[0]].hp}
+          Enemy health: { enemies[0].hp}
         </p>
         <Choices guess={this.guess.bind(this)} update={this.props.updateGame.bind(this)} />
       </div>

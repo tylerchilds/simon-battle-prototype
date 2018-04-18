@@ -4,9 +4,15 @@ export function updatePlayers(id, players) {
   let current = players[id]
   delete players[id]
 
+  let enemies = []
+
+  for(let id in players){
+    enemies.push(players[id])
+  }
+
   return {
     type: PLAYERS_UPDATED,
-    enemies: players,
+    enemies,
     current
   };
 }
